@@ -1,7 +1,5 @@
 from flask import Flask, request
-from helpers import rotate_character
-all_sym = {'alphabet' : "abcdefghijklmnopqrstuvwxyz" , 'ALPHABET' : "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 'sym' : "'!@#$%^&*()_+=-?/.,><:; ", 'num' : '1234567890'}  
-
+from caesar import rotate_string
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -39,9 +37,9 @@ display = """
 
                     <br><br>
 
-                    <input id="text" type="text" name="message">
+                    <textarea id="text" type="text" name="message">
                         {0}
-                    </input>
+                    </textarea>
 
                     <br><br>
 
@@ -65,10 +63,6 @@ def index():
     rot = int(request.form["rotate"])
     text = str(request.form["message"])
 
-    encryption = ""
-    for char in text:    
-        encryption += rotate_character(char, rot)
-    encryption = display.format(encryption)      
-    return encryption
-
+    encrypt = rotate_string(text, rot)
+    return display.format(encrypt)
 app.run()
