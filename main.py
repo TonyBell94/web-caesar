@@ -64,5 +64,5 @@ def index():
     text = str(request.form["message"])
 
     encrypt = rotate_string(text, rot)
-    return display.format(encrypt)
+    return "<h1>" + display.format(encrypt) + "</h1>"
 app.run()
